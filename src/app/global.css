@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+hrml,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@theme {
+  --color-black-900: #34313d;
+  --color-purple-800: #3a3054;
+  --color-purple-600: #5b3f6b;
+  --color-gray-100: #9e9aa8;
+  --color-gray-50: #eff1f7;
+  --color-lightBlue: #2bd0d0;
+
+  --breakpoint-desktop: 768px;
+}
