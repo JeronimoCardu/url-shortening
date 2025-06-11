@@ -21,17 +21,18 @@ export default function Shorter() {
   return (
     <>
       <form
-        className='flex w-[calc(100%_-_3rem)] absolute left-1/2 -translate-x-1/2 -translate-y-1/2 gap-4 flex-col p-[1rem_1.5rem] rounded-[10px] bg-purple-800 desktop:bg-[url(/images/bg-shorten-desktop.svg)] bg-[url(/images/bg-shorten-mobile.svg)]'
+        id='shorter'
+        className='flex desktop:justify-center desktop:w-sizeDesktop desktop:py-12 desktop:flex-row w-sizeMobile absolute left-1/2 -translate-x-1/2 -translate-y-1/2 gap-4 flex-col p-[1rem_1.5rem] rounded-[10px] bg-purple-800 desktop:bg-[url(/images/bg-shorten-desktop.svg)] bg-[url(/images/bg-shorten-mobile.svg)]'
         onSubmit={(e) => e.preventDefault()}>
         <input
           type='text'
           placeholder='Shorten a link here...'
-          className='bg-white outline-0 text-[1.125rem] p-4 rounded-[5px]'
+          className='bg-white desktop:w-8/10 outline-0 text-[1.125rem] p-4 rounded-[5px]'
           required
         />
         <button
           type='submit'
-          className='bg-lightBlue font-bold text-[1.125rem] rounded-[5px] py-4 text-nold text-white curosr-pointer'>
+          className='bg-lightBlue desktop:px-4 cursor-pointer font-bold text-[1.125rem] rounded-[5px] py-4 text-nold text-white curosr-pointer'>
           Shorten It!
         </button>
       </form>

@@ -30,9 +30,9 @@ export default function Home() {
     <>
       <NavBar />
       <main>
-        <section className='px-6 flex overflow-x-hidden flex-col items-center space-y-4'>
+        <section className='desktop:ml-[12.5rem] desktop:grid desktop:grid-cols-[3fr_2fr]  px-6 flex overflow-x-hidden flex-col items-center space-y-4'>
           <Image
-            className='sm:scale-100 scale-150 my-25 translate-x-25'
+            className=' sm:scale-100 sm:pb-6 sm:m-0 desktop:py-13 desktop:row-start-1 desktop:col-start-2 desktop:m-0 scale-150 my-25 translate-x-25'
             rel='preload'
             width={800}
             height={700}
@@ -40,25 +40,27 @@ export default function Home() {
             alt={'illustration'}
             priority
           />
-          <h1 className='text-black-900 text-center leading-[3rem] text-[2.625rem] font-bold'>
-            More than just shorter links
-          </h1>
-          <p className='text-[1.125rem] scroll-x-0 text-gray-100 text-center'>
-            Build your brand's recognition and get detailed insights on how your
-            links are performing.
-          </p>
-          <StartedBtn />
+          <div className='desktop:col-start-1 desktop:row-start-1 space-y-2 flex flex-col items-center desktop:items-start'>
+            <h1 className='text-black-900 desktop:text-[5rem] desktop:leading-[5.625rem] desktop:text-left text-center leading-[3rem] text-[2.625rem] font-bold'>
+              More than just shorter links
+            </h1>
+            <p className='text-[1.125rem] scroll-x-0 text-gray-100 desktop:text-left text-center'>
+              Build your brand's recognition and get detailed insights on how
+              your links are performing.
+            </p>
+            <StartedBtn />
+          </div>
         </section>
         <div className='bg-[#EFF1F7] relative mt-50'>
           <Shorter />
-          <section className='py-16 w-[calc(100%_-_3rem)] space-y-5 mx-auto text-center'>
+          <section className='py-16 w-sizeMobile desktop:w-sizeDesktop desktop:flex desktop:flex-col desktop:items-center space-y-5 mx-auto text-center'>
             <h2 className='font-bold text-[1.75rem]'>Advanced Statistics</h2>
-            <p className='text-gray-100'>
+            <p className='text-gray-100 desktop:w-2/3'>
               Track how your links are performing across the web with our
               advanced statistics dashboard
             </p>
-            <aside className='space-y-20 relative my-18'>
-              <div className='w-2 h-full bg-lightBlue left-1/2 -translate-x-1/2 absolute'></div>
+            <aside className='space-y-20  desktop:flex desktop:gap-4 relative my-18'>
+              <div className='w-2 h-full desktop:w-full desktop:left-0 desktop:h-2 bg-lightBlue left-1/2 desktop:-translate-x-0 desktop:top-1/2 desktop:-translate-y-1/2 -translate-x-1/2 absolute'></div>
               {statistics.map((stat, idx) => (
                 <Stat key={idx} stat={stat} />
               ))}
