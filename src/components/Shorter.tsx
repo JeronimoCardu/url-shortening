@@ -1,45 +1,80 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import LinkShorted from './LinkShorted'
-
+import { useState } from "react";
+import LinkShorted from "./LinkShorted";
+export type LinkData = {
+  link: string;
+  linkShorted: string;
+};
 export default function Shorter() {
-  const [links, setLinks] = useState([
-    {
-      link: 'www.frontendmenotr.io',
-      linkShorted: 'relink',
-    },
-    {
-      link: 'www.frontendmenotr.io',
-      linkShorted: 'relink',
-    },
-    {
-      link: 'www.frontendmenotr.io',
-      linkShorted: 'relink',
-    },
-  ])
+  const [links, setLinks] = useState<LinkData[]>([]);
+  const [value, setValue] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+  const [copy, setCopy] = useState<string>("");
+
+  const shorterURL = async (urlToShort: string) => {
+    const data = await fetch("/api/shorten", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: urlToShort }),
+    });
+
+    if (!data.ok) {
+      setError(true);
+      return;
+    } else setError(false);
+
+    const response = await data.json();
+    setLinks([
+      {
+        link: urlToShort,
+        linkShorted: `${response.result_url}`,
+      },
+      ...links,
+    ]);
+  };
+
   return (
     <>
       <form
-        id='shorter'
-        className='flex desktop:justify-center desktop:w-sizeDesktop desktop:py-12 desktop:flex-row w-sizeMobile absolute left-1/2 -translate-x-1/2 -translate-y-1/2 gap-4 flex-col p-[1rem_1.5rem] rounded-[10px] bg-purple-800 desktop:bg-[url(/images/bg-shorten-desktop.svg)] bg-[url(/images/bg-shorten-mobile.svg)]'
-        onSubmit={(e) => e.preventDefault()}>
+        id="shorter"
+        className="desktop:justify-center desktop:w-sizeDesktop desktop:py-12 desktop:flex-row w-sizeMobile desktop:bg-[url(/images/bg-shorten-desktop.svg)] absolute left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-[10px] bg-purple-800 bg-[url(/images/bg-shorten-mobile.svg)] p-[1rem_1.5rem]"
+        onSubmit={(e) => {
+          e.preventDefault();
+          shorterURL(value);
+        }}
+      >
         <input
-          type='text'
-          placeholder='Shorten a link here...'
-          className='bg-white desktop:w-8/10 outline-0 text-[1.125rem] p-4 rounded-[5px]'
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          type="text"
+          placeholder="Shorten a link here..."
+          className={`${
+            error ? "border-red-500" : "border-transparent"
+          } desktop:w-8/10 rounded-[5px] border-2 bg-white p-4 text-[1.125rem] outline-0`}
           required
         />
         <button
-          type='submit'
-          className='bg-lightBlue desktop:px-4 cursor-pointer font-bold text-[1.125rem] rounded-[5px] py-4 text-nold text-white curosr-pointer'>
+          type="submit"
+          className="bg-lightBlue desktop:px-4 text-nold curosr-pointer cursor-pointer rounded-[5px] py-4 text-[1.125rem] font-bold text-white"
+        >
           Shorten It!
         </button>
       </form>
-      <div className='space-y-6 pt-25'>
+      <div className="space-y-6 pt-25">
         {links.length > 0 &&
-          links.map((link, idx) => <LinkShorted key={idx} link={link} />)}
+          links.map((link, idx) => (
+            <LinkShorted
+              key={idx}
+              link={link.link}
+              linkShorted={link.linkShorted}
+              copy={copy}
+              setCopy={setCopy}
+            />
+          ))}
       </div>
     </>
-  )
+  );
 }
